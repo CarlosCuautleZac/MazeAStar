@@ -17,6 +17,8 @@ namespace MazeAStar
         {
             List<Nodo> abiertos = new();
             List<Nodo> cerrados = new();
+            Nodo.ColDest = destino.Col;
+            Nodo.RenDest = destino.Col;
             bool existeRuta = true;
             bool solucionEncontrada = false;
 
@@ -36,7 +38,32 @@ namespace MazeAStar
 
                     if (mejorNodo.Col != destino.Col || mejorNodo.Ren != destino.Ren)
                     {
-
+                        var sucesores = mejorNodo.GenerarSucesores();
+                        foreach (var nodo in sucesores)
+                        {
+                            Nodo? viejo = abiertos.FirstOrDefault(x => x.Ren == nodo.Ren && x.Col == nodo.Col);
+                            if (viejo != null)
+                            {
+                                if (nodo.G < viejo.G)
+                                {
+                                    viejo.G = nodo.G;
+                                    viejo.Padre = mejorNodo;
+                                }
+                                    
+                            }
+                            else
+                            {
+                                viejo = cerrados.FirstOrDefault(x => x.Ren == nodo.Ren && x.Col == nodo.Col);
+                                if(viejo!=null)
+                                {
+                                    if (nodo.G < viejo.G)
+                                    {
+                                        viejo.G = nodo.G;
+                                        viejo.Padre = mejorNodo;
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {

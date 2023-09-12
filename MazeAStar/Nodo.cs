@@ -14,8 +14,8 @@ namespace MazeAStar
         public static bool[,] Tablero { get; set; }
         #endregion
 
-        public static int RenDest { get; private set; }
-        public static int ColDest { get; private set; }
+        public static int RenDest { get; set; }
+        public static int ColDest { get; set; }
 
         public int G { get; set; }
         public int H => Math.Abs(Ren - Nodo.RenDest)+Math.Abs(Col - Nodo.ColDest);
@@ -43,7 +43,34 @@ namespace MazeAStar
                 };
             }
 
-            if(Ren)
+            if (Ren < Tablero.GetLength(0) - 1 && !Tablero[Col, Ren + 1])
+            {
+                yield return new Nodo()
+                {
+                    Ren= Ren+ 1,
+                    Col = Col,
+                    G = G + 1
+                };
+            }
+
+            if(Col>0 && !Tablero[Col-1, Ren])
+            {
+                yield return new Nodo()
+                {
+                    Ren = Ren,
+                    Col = Col-1,
+                    G = G + 1   
+                };
+            }
+            if (Col<Tablero.GetLength(1)-1 && !Tablero[Col+1,Ren])
+            {
+                yield return new Nodo()
+                {
+                    Ren = Ren,
+                    Col = Col +1,
+                    G = G + 1
+                };
+            }
         }
 
 

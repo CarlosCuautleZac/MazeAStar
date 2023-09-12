@@ -24,5 +24,26 @@ namespace MazeAStar
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Nodo.Tablero = new bool[9,9];
+            Nodo inicial = new Nodo()
+            {
+                Col = 1,
+                Ren = 0,
+                G = 0
+            };
+
+            Nodo final = new Nodo()
+            {
+                Col = 8,
+                Ren = 7
+            };
+
+
+            AStar aStar = new AStar();
+            aStar.Buscar(inicial,final);
+        }
     }
 }
