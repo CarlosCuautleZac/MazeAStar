@@ -21,6 +21,8 @@ namespace MazeAStar
         public int H => Math.Abs(Ren - Nodo.RenDest)+Math.Abs(Col - Nodo.ColDest);
         public int F => G + H;
 
+        public Nodo? Padre { get; set; }
+
         public IEnumerable<Nodo> GenerarSucesores()
         {
             if(Ren>0 && !Tablero[Col, Ren - 1])
