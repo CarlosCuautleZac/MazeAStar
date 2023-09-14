@@ -23,6 +23,7 @@ namespace MazeAStar
             Nodo.RenDest = destino.Col;
             bool existeRuta = true;
             bool solucionEncontrada = false;
+            Nodo? mejorNodo = new();
 
             abiertos.Add(origen);
 
@@ -34,7 +35,7 @@ namespace MazeAStar
                 }
                 else
                 {
-                    var mejorNodo = abiertos.OrderBy(x => x.F).First();
+                    mejorNodo = abiertos.OrderBy(x => x.F).First();
                     abiertos.Remove(mejorNodo);
                     cerrados.Add(mejorNodo);
 
@@ -75,6 +76,17 @@ namespace MazeAStar
                 }
 
             } while (existeRuta && !solucionEncontrada);
+
+            if(solucionEncontrada)
+            {
+                List<Nodo> solucion = new();
+                solucion.Add(mejorNodo);
+                while (mejorNodo.Padre != null)
+                {
+                    mejorNodo = mejorNodo.Padre;
+                    solucion.Add(mejorNodo);
+                }
+            }
         }
 
 
