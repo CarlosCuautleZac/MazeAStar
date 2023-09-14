@@ -75,9 +75,5 @@ namespace MazeAStar
             }
         }
 
-        void PropagarG(int g)
-        {
-            this.G = g;
-        }
     }
 }
