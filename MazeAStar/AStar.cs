@@ -13,10 +13,12 @@ namespace MazeAStar
             
         }
 
+        List<Nodo> abiertos = new();
+        List<Nodo> cerrados = new();
+
         public void Buscar(Nodo origen, Nodo destino)
         {
-            List<Nodo> abiertos = new();
-            List<Nodo> cerrados = new();
+           
             Nodo.ColDest = destino.Col;
             Nodo.RenDest = destino.Col;
             bool existeRuta = true;
@@ -48,6 +50,7 @@ namespace MazeAStar
                                 {
                                     viejo.G = nodo.G;
                                     viejo.Padre = mejorNodo;
+                                    PropagarG(viejo);
                                 }
                                     
                             }
@@ -75,6 +78,20 @@ namespace MazeAStar
         }
 
 
+        void PropagarG(Nodo nodo)
+        {
+            var hijos = abiertos.Where(x => x.Padre == nodo);
+            foreach (var hijo in hijos)
+            {
+                hijo.G = nodo.G + 1;
+            }
 
+            hijos = cerrados.Where(x=>x.Padre == nodo);
+            foreach (var hijo in hijos)
+            {
+                hijo.G = nodo.G + 1;
+                PropagarG (hijo);
+            }
+        }
     }
 }
