@@ -75,5 +75,10 @@ namespace MazeAStar
             }
         }
 
+        public override string ToString()
+        {
+            return $"{Ren},{Col}";
+        }
+
     }
 }

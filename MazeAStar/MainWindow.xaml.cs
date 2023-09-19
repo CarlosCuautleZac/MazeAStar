@@ -43,7 +43,7 @@ namespace MazeAStar
 
 
             AStar aStar = new AStar();
-            aStar.Buscar(inicial,final);
+           var camino =  aStar.Buscar(inicial,final);
         }
     }
 }

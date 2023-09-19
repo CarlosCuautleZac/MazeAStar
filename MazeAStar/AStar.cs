@@ -16,7 +16,7 @@ namespace MazeAStar
         List<Nodo> abiertos = new();
         List<Nodo> cerrados = new();
 
-        public void Buscar(Nodo origen, Nodo destino)
+        public IEnumerable<Nodo> Buscar(Nodo origen, Nodo destino)
         {
            
             Nodo.ColDest = destino.Col;
@@ -51,7 +51,6 @@ namespace MazeAStar
                                 {
                                     viejo.G = nodo.G;
                                     viejo.Padre = mejorNodo;
-                                    PropagarG(viejo);
                                 }
                                     
                             }
@@ -64,7 +63,14 @@ namespace MazeAStar
                                     {
                                         viejo.G = nodo.G;
                                         viejo.Padre = mejorNodo;
+                                        PropagarG(viejo);
+
                                     }
+                                }
+                                else
+                                {
+                                    nodo.Padre = mejorNodo;
+                                    abiertos.Add(nodo);
                                 }
                             }
                         }
@@ -86,7 +92,10 @@ namespace MazeAStar
                     mejorNodo = mejorNodo.Padre;
                     solucion.Add(mejorNodo);
                 }
+                solucion.Reverse();
+                return solucion;
             }
+            return  Enumerable.Empty<Nodo>();
         }
 
 
