@@ -28,6 +28,9 @@ namespace MazeAStar
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Nodo.Tablero = new bool[9,9];
+            Nodo.Tablero[1, 5] = true;
+            Nodo.Tablero[2, 5] = true;
+
             Nodo inicial = new Nodo()
             {
                 Col = 1,
