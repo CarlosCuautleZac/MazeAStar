@@ -27,7 +27,7 @@ namespace MazeAStar
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Nodo.Tablero = new bool[9,9];
+            Nodo.Tablero = new bool[9, 9];
             Nodo.Tablero[1, 5] = true;
             Nodo.Tablero[2, 5] = true;
 
@@ -46,7 +46,46 @@ namespace MazeAStar
 
 
             AStar aStar = new AStar();
-           var camino =  aStar.Buscar(inicial,final);
+            var camino = aStar.Buscar(inicial, final);
         }
+
+        Rectangle[,] cuadritos;
+
+        private void btnGenerar_Click(object sender, RoutedEventArgs e)
+        {
+            int filas = int.Parse(txtFilas.Text);
+            int columnas = int.Parse(txtColumnas.Text);
+            int obstaculos = int.Parse(txtObstaculos.Text);
+
+            tablero.Rows = filas;
+            tablero.Columns = columnas;
+            cuadritos = new Rectangle[columnas, filas];
+            Nodo.Tablero = new bool[columnas, filas];
+
+            for (int i = 0; i < columnas; i++)
+            {
+                for (int j = 0; j < filas; j++)
+                {
+                    cuadritos[i, j] = new Rectangle()
+                    {
+                        Stroke = Brushes.Black
+                    };
+                    tablero.Children.Add(cuadritos[i, j]);
+                }
+
+            }
+
+            Random r  = new Random();
+
+            for (int i = 0; i < obstaculos; i++)
+            { 
+                int fila = r.Next(filas);
+                int columna = r.Next(columnas);            
+                cuadritos[r.Next(columna), r.Next(fila)].Fill = Brushes.DarkSeaGreen;
+                Nodo.Tablero[columna,fila] = true;
+            }
+        }
+
+        
     }
 }
