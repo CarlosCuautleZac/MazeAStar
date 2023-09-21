@@ -16,6 +16,7 @@
             <TextBlock Text="Obstaculos"></TextBlock>
             <TextBox x:Name="txtObstaculos" Text="90"></TextBox>
             <Button Content="Generar" x:Name="btnGenerar" Click="btnGenerar_Click"></Button>
+            <Button x:Name="btnResvolver" Click="btnResvolver_Click">Resolver</Button>
         </StackPanel>
 
         <UniformGrid x:Name="tablero">
